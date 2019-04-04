@@ -1,0 +1,51 @@
+{
+    "data_list": [
+        {
+            "title":"遥控小车",
+            "imageUrl":"https://tse1-mm.cn.bing.net/th?id=OIP.tS5bFME1M01HpE2qK3terAHaFN&w=249&h=175&c=7&o=5&pid=1.7",
+            "time":"2019-04-03",
+            "content":"安卓的小车淘宝上很多，用手机装上 IM，给小车发指令。商业话的话就是特种车辆，在危险的地方拍摄情况，运送物质，比如在爆炸现场，在地下坑道，甚至水下，没有 4G 和无线就拖跟网线。",
+            "pictures":[
+                "http://pic1.win4000.com/wallpaper/9/5450ae2fdef8a.jpg"
+            ]
+        },
+        {
+            "title":"友发明的跟奶奶聊天工具",
+            "imageUrl":"https://tse1-mm.cn.bing.net/th?id=OIP.fZDQFtZtJgRqjP9zf6WI9gAAAA&w=178&h=267&c=7&o=5&pid=1.7",
+            "time":"2019-04-04",
+            "content":"他受限于微信的封闭（微信可以连接一切，你不能通过微信连接一切），使用我们的 sdk 问题迎刃而解。可以做成这样，手机后台一直录音，然后奶奶喊一声“乖孙子”，然后给奶奶提示开始录音，等奶奶说完，把语音消息发出去，奶奶收到消息直接播放。商业上对应特殊人群的沟通需求这一细分的领域",
+            "pictures":[
+                "http://pic1.win4000.com/wallpaper/9/5450ae2fdef8a.jpg",
+                "http://img4.duitang.com/uploads/item/201601/15/20160115231312_TWuG5.gif",
+                "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0200ff00000bdkpfpdd2r6fb5kf6m50&line=0.MP4"
+            ]
+        },
+        {
+            "title":"对讲功能",
+            "imageUrl":"https://tse3-mm.cn.bing.net/th?id=OIP.pe8YAKzk5ASLLqAAO9dghwHaEq&w=178&h=112&c=7&o=5&pid=1.7",
+            "time":"2019-04-05",
+            "content":"可以做一个弱一点的对讲机，录音后作为语音消息发出去，收到方直接播放。"
+        },
+        {
+            "title":"物联网",
+            "imageUrl":"https://tse3-mm.cn.bing.net/th?id=OIP.pMI55nv3jWBdB6F24H0KWQHaLH&w=178&h=267&c=7&o=5&pid=1.7",
+            "time":"2019-04-06",
+            "content":"你需要一个网关（目前只有 android 和 java 的 SDK，C 语言版本的后面也会出）来连接你的设备，然后手机和网关通过 IM 连接，这样你可以远程控制您的物联网设备"
+        },
+        {
+            "title":"企业通讯",
+            "imageUrl":"https://tse1-mm.cn.bing.net/th?id=OIP.skSWZpTaTF7c_BnzJfrvrgHaEK&w=296&h=166&c=7&o=5&pid=1.7",
+            "time":"2019-04-07",
+            "content":"现在通讯都被微信和钉钉垄断，太多企业不愿意暴露信息给他们，很多企业都在使用私有部署的企业通讯软件,基于我们的通讯组件，可以打造一款企业级通讯软件，避免信息泄漏的可能",
+            "pictures":[
+                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524118772581&di=29b994a8fcaaf72498454e6d207bc29a&imgtype=0&src=http%3A%2F%2Fimglf2.ph.126.net%2F_s_WfySuHWpGNA10-LrKEQ%3D%3D%2F1616792266326335483.gif",
+                "http://pic37.nipic.com/20140110/17563091_221827492154_2.jpg",
+                "http://pic36.nipic.com/20131129/8821914_111419739001_2.jpg",
+                "http://pic36.nipic.com/20131203/12728082_134842497000_2.jpg",
+                "http://pic31.nipic.com/20130721/5452164_091918765108_2.jpg",
+                "http://img.redocn.com/sheying/20140731/qinghaihuyuanjing_2820969.jpg",
+                "http://pic13.nipic.com/20110331/7053919_100607336160_2.jpg"
+            ]
+        }
+    ]
+}

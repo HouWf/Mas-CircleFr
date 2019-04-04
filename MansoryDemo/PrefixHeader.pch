@@ -1,0 +1,32 @@
+//
+//  PrefixHeader.pch
+//  MansoryDemo
+//
+//  Created by hzhy001 on 2019/4/2.
+//  Copyright © 2019 hzhy001. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "Masonry.h"
+#import "UIImageView+WebCache.h"
+#import "SDAutoLayout.h"
+#import "MJExtension.h"
+#import "ReactiveObjC.h"
+#import "YBImageBrowser.h"
+
+#import "NSArray+Squared.h"
+#import "UIView+Corner.h"
+
+#define  RGBA(R, G, B, A) [UIColor colorWithRed:R/255 green:G/255 blue:B/255 alpha:A]
+
+#define Main_Screen_Height      [[UIScreen mainScreen] bounds].size.height
+#define Main_Screen_Width       [[UIScreen mainScreen] bounds].size.width
+#define kScreenWidthRatio  (Main_Screen_Width / 375.0)
+#define kScreenHeightRatio (Main_Screen_Height / 812.0)
+
+#endif /* PrefixHeader_pch */

@@ -1,0 +1,40 @@
+PODS:
+  - Masonry (1.1.0)
+  - MJExtension (3.0.15.1)
+  - ReactiveObjC (3.1.0)
+  - SDAutoLayout (2.2.0)
+  - SDWebImage (4.4.5):
+    - SDWebImage/Core (= 4.4.5)
+  - SDWebImage/Core (4.4.5)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+
+DEPENDENCIES:
+  - Masonry
+  - MJExtension
+  - ReactiveObjC
+  - SDAutoLayout (= 2.2.0)
+  - SDWebImage
+  - YYImage
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Masonry
+    - MJExtension
+    - ReactiveObjC
+    - SDAutoLayout
+    - SDWebImage
+    - YYImage
+
+SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  SDAutoLayout: c5509e77ae75735d9a39f7bc83dba6d3f75d49d8
+  SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+
+PODFILE CHECKSUM: 3d3695d7b72360a31bc9b8ebdde809f61f9d2d1b
+
+COCOAPODS: 1.6.0
