@@ -32,59 +32,86 @@
 }
 
 - (void)reloadContainerViewWithArray:(NSArray *)array{
-    
 //    NSLog(@"self.frame = %@", NSStringFromCGRect(self.frame));
     
+    NSArray *tempArray = [NSArray arrayWithArray:array];
+    if (tempArray.count > 9) {
+        tempArray = [tempArray subarrayWithRange:NSMakeRange(0, 9)];
+    }
+    self.sourceArray = [NSMutableArray arrayWithArray:tempArray];
+   
+    for (long i = self.sourceArray.count; i < self.pictureViewArray.count; i++) {
+        PictureView *imageView = [self.pictureViewArray objectAtIndex:i];
+        imageView.hidden = YES;
+    }
+    
     if (array.count == 0) {
-        
-        [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj removeFromSuperview];
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+            make.width.mas_equalTo(0);
         }];
         return;
     }
     
-    // 超出9个部分 舍弃
-    if (array.count > 9) {
-        array = [array subarrayWithRange:NSMakeRange(0, 9)];
-    }
-    
-    // 数据源
-    self.sourceArray = [NSMutableArray arrayWithArray:array];
+#if 1
+    long perRowItemCount = [self perRowItemCountForPicPathArray:self.sourceArray];
+    CGFloat itemWidth = [self itemWidthForPicPathArray:self.sourceArray];
+    CGFloat itemHeight = itemWidth; // self.sourceArray.count == 1 ? itemWidth * 1.2 : itemWidth;
    
-    // 添加视图
-    for (NSInteger i = 0; i < self.sourceArray.count; i++) {
-        PictureView *imageView = self.pictureViewArray[i];
-        [self addSubview:imageView];
-    }
+    [self.sourceArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+        long columnIndex = idx % perRowItemCount;
+        long rowIndex = idx / perRowItemCount;
+        PictureView *imageView = [self.pictureViewArray objectAtIndex:idx];
+        imageView.hidden = NO;
+        [self refreshUiWithString:obj imageView:imageView];
+        
+        [imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(columnIndex * (itemWidth + Marg));
+            make.top.mas_equalTo(rowIndex * (itemHeight + Marg));
+            make.width.mas_equalTo(itemWidth);
+            make.height.mas_equalTo(itemHeight);
+        }];
+    }];
+
+    CGFloat w = perRowItemCount * itemWidth + (perRowItemCount - 1) * kItemSpace;
+    int columnCount = ceilf(self.sourceArray.count * 1.0 / perRowItemCount);
+    CGFloat h = columnCount * itemHeight + (columnCount - 1) * kItemSpace;
     
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(h);
+        make.width.mas_equalTo(w);
+    }];
+#else
+    // !!!: 会报布局警告
     // 设置宽高及布局
     if (self.sourceArray.count == 1) {
         CGFloat itemWidth = [self itemWidthForPicPathArray:self.sourceArray];
-        
+
         PictureView *imageView = self.pictureViewArray[0];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-           
+
             make.width.mas_equalTo(itemWidth);
             make.height.equalTo(imageView.mas_width).multipliedBy(1.2);
             make.top.left.equalTo(self);
-            
+
             make.bottom.equalTo(self);
         }];
     }
     else if (self.sourceArray.count == 2){
         PictureView *imageView0 = self.pictureViewArray[0];
         PictureView *imageView1 = self.pictureViewArray[1];
-        
+
         [imageView0 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.height.equalTo(self);
             make.width.equalTo(imageView1);
         }];
-        
+
         [imageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.equalTo(self);
             make.left.equalTo(imageView0.mas_right).offset(kItemSpace);
             make.height.mas_equalTo(imageView1.mas_width);
-            
+
             make.bottom.equalTo(imageView0);
         }];
     }
@@ -94,7 +121,7 @@
         CGFloat count       = [self perRowItemCountForPicPathArray:self.sourceArray];;
         CGFloat itemWidth   = [self itemWidthForPicPathArray:self.sourceArray];
         CGFloat itemHeight  = itemWidth;
-        
+
         [self.subviews mas_distributeSudokuViewsWithFixedItemWidth:0   // 宽度自适应
                                                    fixedItemHeight:itemHeight
                                                   fixedLineSpacing:lineSp
@@ -105,11 +132,12 @@
                                                        leadSpacing:0
                                                        tailSpacing:0];
     }
-    
+
     // 填充视图
     [self.sourceArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self refreshUiWithString:obj imageView:self.pictureViewArray[idx]];
     }];
+#endif
 }
 
 - (void)refreshUiWithString:(NSString *)imageStr imageView:(PictureView *)imgView{
@@ -174,8 +202,7 @@
             return (kMaxWidth-kItemSpace)/2.f;
         }
         else{
-            CGFloat width = (kMaxWidth - 2*kItemSpace)/3.f;
-            return width;
+            return (kMaxWidth - 2*kItemSpace)/3.f;
         }
     }
 }
@@ -202,16 +229,19 @@
 }
 
 - (void)addView{
-    self.pictureViewArray = [NSMutableArray arrayWithCapacity:9];
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:9];
     for (NSInteger i =0 ; i < 9 ; i ++) {
         
         PictureView *picView = [[PictureView alloc] init];
         picView.tag = i;
-        [self.pictureViewArray addObject:picView];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
         [picView addGestureRecognizer:tap];
+        
+        [self addSubview:picView];
+        [temp addObject:picView];
     }
+    self.pictureViewArray = [temp copy];
 }
 
 // 点击放大

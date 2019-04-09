@@ -7,8 +7,20 @@
 //
 
 #import "TabModel.h"
+#import "NSString+RegexCategory.h"
+
+extern CGFloat maxContentLabelHeigth;
+
+@interface TabModel ()
+{
+    CGFloat _lastContentWidth;
+}
+
+@end
 
 @implementation TabModel
+
+@synthesize content = _content;
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
@@ -26,17 +38,42 @@
     return [[self alloc] modelWithDictionary:dic];
 }
 
-/*
+- (void)setContent:(NSString *)content{
+    _content = content;
+}
 
- "pictures":[
- "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1524118772581&di=29b994a8fcaaf72498454e6d207bc29a&imgtype=0&src=http%3A%2F%2Fimglf2.ph.126.net%2F_s_WfySuHWpGNA10-LrKEQ%3D%3D%2F1616792266326335483.gif",
- "http://pic37.nipic.com/20140110/17563091_221827492154_2.jpg",
- "http://pic36.nipic.com/20131129/8821914_111419739001_2.jpg",
- "http://pic36.nipic.com/20131203/12728082_134842497000_2.jpg",
- "http://pic31.nipic.com/20130721/5452164_091918765108_2.jpg",
- "http://img.redocn.com/sheying/20140731/qinghaihuyuanjing_2820969.jpg",
- "http://pic13.nipic.com/20110331/7053919_100607336160_2.jpg"
- ]
+- (NSString *)content{
+    CGFloat maxWidth = Main_Screen_Width - 100;
+    if (maxWidth != _lastContentWidth) {
+        _lastContentWidth = maxWidth;
+        CGFloat textHeight = [self.content sizeOfTextWithMaxSize:CGSizeMake(maxWidth, MAXFLOAT) font:[UIFont systemFontOfSize:12]].height;
+        self.shouldShowMoreButton = textHeight > maxContentLabelHeigth;
+    }
+    
+    return _content;
+}
+/*
+ 这样设置不行  奇怪
  */
+//- (void)mj_keyValuesDidFinishConvertingToObject{
+//
+//    if (self.content.length) {
+//        CGFloat maxWidth = Main_Screen_Width - 100;
+//        if (maxWidth != _lastContentWidth) {
+//            _lastContentWidth = maxWidth;
+//            CGFloat textHeight = [self.content sizeOfTextWithMaxSize:CGSizeMake(maxWidth, MAXFLOAT) font:[UIFont systemFontOfSize:12]].height;
+//            self.shouldShowMoreButton = textHeight > maxContentLabelHeigth;
+//        }
+//    }
+//}
+
+- (void)setIsOpening:(BOOL)isOpening{
+    if (!self.shouldShowMoreButton) {
+        _isOpening = NO;
+    }
+    else{
+        _isOpening = isOpening;
+    }
+}
 
 @end

@@ -11,6 +11,10 @@
 #import "UIView+Corner.h"
 #import "MoreInfoContainerView.h"
 
+CGFloat maxContentLabelHeigth = 0;
+
+CGFloat marg = 10;
+
 @interface TableViewCell ()
 
 @property (nonatomic, strong) UIImageView *headerView;
@@ -21,9 +25,9 @@
 
 @property (nonatomic, strong) UILabel *contentLabel;
 
+@property (nonatomic, strong) UIButton *moreButton;
+
 @property (nonatomic, strong) MoreInfoContainerView *contView;
-
-
 
 @end
 
@@ -43,17 +47,69 @@
         return;
     }
     
+    _model = model;
+    
     [self.headerView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
     self.contentLabel.text = model.content;
-    
     [self.contView reloadContainerViewWithArray:model.pictures];
+    
+    [self resetView:model];
+}
+
+/**
+ 更新布局
+ */
+- (void)resetView:(TabModel *)model{
+    
+    // 展开按钮 离文字内容距离、按钮高度
+    CGFloat bottonTopMarg = 0;
+    CGFloat bottonHeight = 0;
+    NSString *buttonTitle = @"全文";
+    // 文字内容最大高度
+    CGFloat contentLessHeight = maxContentLabelHeigth;
+    // 图片内容顶部距离
+    CGFloat pictureViewTopMarg = 0;
+    
+    if (model.shouldShowMoreButton) {
+        bottonTopMarg = marg;
+        bottonHeight = 20;
+        
+        if (model.isOpening) {
+            contentLessHeight = MAXFLOAT;
+            buttonTitle = @"收起";
+        }
+    }
+    
+    if (model.pictures.count) {
+        pictureViewTopMarg = marg;
+    }
+    
+    // 更新UI
+    self.moreButton.hidden = !model.shouldShowMoreButton;
+    [self.moreButton setTitle:buttonTitle forState:UIControlStateNormal];
+
+    // 更新布局
+    [self.contentLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_lessThanOrEqualTo(contentLessHeight);
+    }];
+    
+    [self.moreButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(bottonTopMarg);
+        make.height.mas_equalTo(bottonHeight);
+    }];
+    
+    [self.contView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.moreButton.mas_bottom).offset(pictureViewTopMarg).priorityHigh();
+        make.left.equalTo(self.nameLabel);
+    }];
+    
+    //    [self.contentView updateConstraintsIfNeeded];
+    [self.contentView layoutIfNeeded];
 }
 
 - (void)maskCellView{
-    
-    CGFloat marg = 10;
     
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -79,15 +135,20 @@
         make.right.equalTo(self.contentView).offset(-marg);
         make.top.equalTo(self.headerView.mas_bottom).offset(marg);
         make.height.mas_greaterThanOrEqualTo(16).priorityHigh();
-
+    }];
+    
+    [self.moreButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.contentLabel);
+        make.top.equalTo(self.contentLabel.mas_bottom).offset(marg);
+        make.width.mas_equalTo(50);
+        make.height.mas_equalTo(20);
     }];
 
     [self.contView mas_makeConstraints:^(MASConstraintMaker *make) {
 
-        make.left.equalTo(self.contentLabel);
-        make.right.equalTo(self.contentLabel);
-        make.top.equalTo(self.contentLabel.mas_bottom).offset(marg);
-        
+        make.leading.equalTo(self.nameLabel);
+//        make.right.equalTo(self.contentLabel);
+        make.top.equalTo(self.moreButton.mas_bottom).offset(marg);
     }];
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,7 +161,15 @@
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-marg);
     }];
     
+    MASAttachKeys(self.timeLabel,self.contView, self.moreButton,self.contentLabel,self.nameLabel,self.headerView);
+    
     [self.contentView layoutIfNeeded];
+}
+
+- (void)moreButtonClicked{
+    if (self.tableBlock) {
+        self.tableBlock(self.model);
+    }
 }
 
 - (void)awakeFromNib {
@@ -153,9 +222,25 @@
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.font = [UIFont systemFontOfSize:12];
         _contentLabel.numberOfLines = 0;
+        if (maxContentLabelHeigth == 0) {
+            maxContentLabelHeigth = _contentLabel.font.lineHeight * 4;
+        }
         [self.contentView addSubview:_contentLabel];
     }
     return _contentLabel;
+}
+
+- (UIButton *)moreButton{
+    if (!_moreButton) {
+        _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_moreButton setTitle:@"全文" forState:UIControlStateNormal];
+        [_moreButton setTitleColor:RGBA(41, 122, 204, 1) forState:UIControlStateNormal];
+        [_moreButton addTarget:self action:@selector(moreButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        _moreButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        _moreButton.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+        [self.contentView addSubview:_moreButton];
+    }
+    return _moreButton;
 }
 
 - (MoreInfoContainerView *)contView{

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) TabModel *model;
 
-@property (nonatomic, copy) void(^tableBlock)(TableViewCell *cell, NSInteger selectedIndex);
+@property (nonatomic, copy) void(^tableBlock)(TabModel *selecteModel);
 
 @end
 

@@ -66,6 +66,13 @@ static NSString *main_tab_identifier = @"main_tab_identifier";
         cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:main_tab_identifier];
     }
     cell.model = self.dataSource[indexPath.row];
+    
+    __weak typeof(self) weakSelf = self;
+    cell.tableBlock = ^(TabModel * _Nonnull selecteModel) {
+        __strong typeof(weakSelf) self = weakSelf;
+        selecteModel.isOpening = !selecteModel.isOpening;
+        [self.main_tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];        
+    };
     return cell;
 }
 
@@ -78,7 +85,7 @@ static NSString *main_tab_identifier = @"main_tab_identifier";
         _main_tableView.dataSource = self;
         _main_tableView.tableFooterView = [UIView new];
         _main_tableView.rowHeight = UITableViewAutomaticDimension;
-        _main_tableView.estimatedRowHeight = 50;
+        _main_tableView.estimatedRowHeight = 200;
 //        [_main_tableView registerClass:[TableViewCell class] forCellReuseIdentifier:main_tab_identifier];
         [self.view addSubview:_main_tableView];
     }

@@ -11,6 +11,7 @@
 		67154ACB22549ADC00226AE9 /* OtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67154ACA22549ADB00226AE9 /* OtherViewController.m */; };
 		67154ACE2254A74D00226AE9 /* ContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67154ACD2254A74D00226AE9 /* ContainerView.m */; };
 		67154AD12254AA5B00226AE9 /* NSArray+Squared.m in Sources */ = {isa = PBXBuildFile; fileRef = 67154AD02254AA5B00226AE9 /* NSArray+Squared.m */; };
+		6724B4F4225ADEA900246A28 /* NSString+RegexCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6724B4F3225ADEA900246A28 /* NSString+RegexCategory.m */; };
 		67548ABA2125110D0091CEC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67548AB92125110D0091CEC5 /* AppDelegate.m */; };
 		67548ABD2125110D0091CEC5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67548ABC2125110D0091CEC5 /* ViewController.m */; };
 		67548AC02125110D0091CEC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67548ABE2125110D0091CEC5 /* Main.storyboard */; };
@@ -77,6 +78,8 @@
 		67154ACD2254A74D00226AE9 /* ContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContainerView.m; sourceTree = "<group>"; };
 		67154ACF2254AA5B00226AE9 /* NSArray+Squared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Squared.h"; sourceTree = "<group>"; };
 		67154AD02254AA5B00226AE9 /* NSArray+Squared.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Squared.m"; sourceTree = "<group>"; };
+		6724B4F2225ADEA900246A28 /* NSString+RegexCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexCategory.h"; sourceTree = "<group>"; };
+		6724B4F3225ADEA900246A28 /* NSString+RegexCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexCategory.m"; sourceTree = "<group>"; };
 		67548AB52125110D0091CEC5 /* MansoryDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MansoryDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67548AB82125110D0091CEC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		67548AB92125110D0091CEC5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -222,6 +225,19 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		6724B4F1225ADE7800246A28 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				67154ACF2254AA5B00226AE9 /* NSArray+Squared.h */,
+				67154AD02254AA5B00226AE9 /* NSArray+Squared.m */,
+				67F1CB0022535B79004B128F /* UIView+Corner.h */,
+				67F1CB0122535B79004B128F /* UIView+Corner.m */,
+				6724B4F2225ADEA900246A28 /* NSString+RegexCategory.h */,
+				6724B4F3225ADEA900246A28 /* NSString+RegexCategory.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		67548AAC2125110D0091CEC5 = {
 			isa = PBXGroup;
 			children = (
@@ -256,13 +272,10 @@
 				67F1CB082253623E004B128F /* Scroll */,
 				67F1CB0322536184004B128F /* Tab */,
 				67154AC822549ACE00226AE9 /* Other */,
+				6724B4F1225ADE7800246A28 /* Category */,
 				67F1CAFE225349AD004B128F /* PrefixHeader.pch */,
 				67154ACC2254A74D00226AE9 /* ContainerView.h */,
 				67154ACD2254A74D00226AE9 /* ContainerView.m */,
-				67154ACF2254AA5B00226AE9 /* NSArray+Squared.h */,
-				67154AD02254AA5B00226AE9 /* NSArray+Squared.m */,
-				67F1CB0022535B79004B128F /* UIView+Corner.h */,
-				67F1CB0122535B79004B128F /* UIView+Corner.m */,
 				67548ABE2125110D0091CEC5 /* Main.storyboard */,
 				67548AC1212511110091CEC5 /* Assets.xcassets */,
 				67548AC3212511110091CEC5 /* LaunchScreen.storyboard */,
@@ -617,6 +630,7 @@
 				67548AC8212511110091CEC5 /* main.m in Sources */,
 				67548ABA2125110D0091CEC5 /* AppDelegate.m in Sources */,
 				678137BF2255A7F700D89AA7 /* YBIBLayoutDirectionManager.m in Sources */,
+				6724B4F4225ADEA900246A28 /* NSString+RegexCategory.m in Sources */,
 				678137BE2255A7F700D89AA7 /* YBIBUtilities.m in Sources */,
 				67F1CAF92253466D004B128F /* TabModel.m in Sources */,
 				678137C02255A7F700D89AA7 /* YBIBPhotoAlbumManager.m in Sources */,

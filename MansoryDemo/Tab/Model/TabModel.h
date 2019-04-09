@@ -22,6 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray *pictures;
 
+
+// 是否展示更多按钮
+@property (nonatomic, assign) BOOL shouldShowMoreButton;
+
+// 是否已展开
+@property (nonatomic, assign) BOOL isOpening;
+
 //+ (instancetype)modelWithDictionary:(NSDictionary *)dic;
 
 @end
